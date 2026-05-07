@@ -28,6 +28,7 @@ export default function RootLayout({
   return (
     <ClerkProvider
       appearance={{
+        theme: "dark",
         variables: {
           colorBackground: "var(--bg-elevated)",
           colorInputBackground: "var(--bg-subtle)",
