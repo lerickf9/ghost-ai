@@ -17,13 +17,15 @@ changes.
 
 - `03-auth`: Clerk wired into the app. `ClerkProvider` wraps the root layout with dark appearance via CSS variable overrides (no hardcoded colors). `proxy.ts` at project root uses `clerkMiddleware` to protect all routes by default; `/sign-in` and `/sign-up` are public via `createRouteMatcher`. Root page redirects authenticated users to `/editor` and unauthenticated users to `/sign-in`. Sign-in and sign-up pages use a minimal two-panel layout (logo + tagline on left, Clerk form on right; form-only on small screens). `UserButton` added to the editor navbar right section. `npm run build` passes.
 
+- `04-project-dialogs`: Editor home screen (heading + description + New Project button). `useProjectDialogs` hook manages dialog state, form state, loading state, and mock project list. Three controlled dialogs: Create (name input + live slug preview), Rename (prefilled + auto-focus + Enter submits), Delete (destructive confirm only). `EditorSidebar` with project list; rename/delete actions visible on hover for owned projects only, hidden for collaborator projects. Mobile: backdrop scrim + tap-outside closes sidebar. All wired: editor home New Project → Create dialog; sidebar `+` → Create dialog; sidebar rename/delete → respective dialogs. `npm run build` passes.
+
 ## In Progress
 
 - None.
 
 ## Next Up
 
-- Add the next planned feature unit here.
+- `05-*`: Define the next planned feature unit.
 
 ## Open Questions
 
