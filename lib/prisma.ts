@@ -12,13 +12,13 @@ function makePrismaClient() {
   return new PrismaClient({ adapter: new PrismaPg({ connectionString: url }) });
 }
 
-type PrismaInstance = ReturnType<typeof makePrismaClient>;
-
 const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaInstance | undefined;
+  prisma: PrismaClient | undefined;
 };
 
-export const prisma = globalForPrisma.prisma ?? makePrismaClient();
+export const prisma = (
+  globalForPrisma.prisma ?? makePrismaClient()
+) as unknown as PrismaClient;
 
 if (process.env.NODE_ENV !== "production") {
   globalForPrisma.prisma = prisma;
