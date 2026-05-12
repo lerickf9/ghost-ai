@@ -19,13 +19,17 @@ changes.
 
 - `04-project-dialogs`: Editor home screen (heading + description + New Project button). `useProjectDialogs` hook manages dialog state, form state, loading state, and mock project list. Three controlled dialogs: Create (name input + live slug preview), Rename (prefilled + auto-focus + Enter submits), Delete (destructive confirm only). `EditorSidebar` with project list; rename/delete actions visible on hover for owned projects only, hidden for collaborator projects. Mobile: backdrop scrim + tap-outside closes sidebar. All wired: editor home New Project → Create dialog; sidebar `+` → Create dialog; sidebar rename/delete → respective dialogs. `npm run build` passes.
 
+- `05-prisma`: Data models, Prisma client singleton, and first migration. `Project` and `ProjectCollaborator` models in `prisma/models/project.prisma`. `lib/prisma.ts` singleton branches on `DATABASE_URL` prefix: `prisma+postgres://` → Accelerate (`withAccelerate()`), otherwise direct `@prisma/adapter-pg`. Migration `20260512012253_init` applied. Client generated to `app/generated/prisma`. `npm run build` passes.
+
+- `06-project-apis`: REST endpoints for project CRUD. `GET /api/projects` lists the authenticated user's projects. `POST /api/projects` creates a project (defaults name to `Untitled Project`). `PATCH /api/projects/[projectId]` renames; `DELETE /api/projects/[projectId]` deletes. Both mutations enforce owner-only access (401 for unauthenticated, 403 for non-owner). Auth via `auth()` from `@clerk/nextjs/server`. `lib/prisma.ts` updated to cast to `PrismaClient` to resolve Accelerate union type incompatibility. `npm run build` passes.
+
 ## In Progress
 
 - None.
 
 ## Next Up
 
-- `05-*`: Define the next planned feature unit.
+- `07-*`: Define the next planned feature unit.
 
 ## Open Questions
 
