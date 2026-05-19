@@ -23,13 +23,15 @@ changes.
 
 - `06-project-apis`: REST endpoints for project CRUD. `GET /api/projects` lists the authenticated user's projects. `POST /api/projects` creates a project (defaults name to `Untitled Project`). `PATCH /api/projects/[projectId]` renames; `DELETE /api/projects/[projectId]` deletes. Both mutations enforce owner-only access (401 for unauthenticated, 403 for non-owner). Auth via `auth()` from `@clerk/nextjs/server`. `lib/prisma.ts` updated to cast to `PrismaClient` to resolve Accelerate union type incompatibility. `npm run build` passes.
 
+- `07-wire-editor-home`: Editor home wired to real project API. `lib/data/projects.ts` added with `getOwnedProjects` and `getSharedProjects` server-side helpers. `app/editor/page.tsx` converted to an async server component — fetches owned and shared projects via `auth()` + `currentUser()` and passes them to `EditorHomeClient`. `app/editor/editor-home-client.tsx` extracted as the client shell. `hooks/use-project-actions.ts` replaces mock hook: create calls `POST /api/projects` with a generated `{slug}-{suffix}` room ID and navigates to the new workspace; rename calls `PATCH`; delete calls `DELETE` and redirects to `/editor` if the active project is removed, otherwise refreshes. `POST /api/projects` updated to accept an optional `id` in the request body so the client-generated room ID is persisted as the project ID. `EditorSidebar` and `CreateProjectDialog` updated to use the real `ProjectWithOwnership` type and show a room ID preview. `npm run build` passes.
+
 ## In Progress
 
 - None.
 
 ## Next Up
 
-- `07-*`: Define the next planned feature unit.
+- `08-*`: Define the next planned feature unit.
 
 ## Open Questions
 

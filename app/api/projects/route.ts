@@ -24,17 +24,23 @@ export async function POST(request: Request) {
   }
 
   const body: unknown = await request.json().catch(() => ({}));
+  const bodyObj =
+    typeof body === "object" && body !== null
+      ? (body as Record<string, unknown>)
+      : {};
+
   const name =
-    typeof body === "object" &&
-    body !== null &&
-    "name" in body &&
-    typeof (body as { name: unknown }).name === "string" &&
-    (body as { name: string }).name.trim() !== ""
-      ? (body as { name: string }).name.trim()
+    typeof bodyObj.name === "string" && bodyObj.name.trim() !== ""
+      ? bodyObj.name.trim()
       : "Untitled Project";
 
+  const customId =
+    typeof bodyObj.id === "string" && bodyObj.id.trim() !== ""
+      ? bodyObj.id.trim()
+      : undefined;
+
   const project = await prisma.project.create({
-    data: { ownerId: userId, name },
+    data: { ...(customId ? { id: customId } : {}), ownerId: userId, name },
   });
 
   return Response.json(project, { status: 201 });
