@@ -3,14 +3,14 @@
 import { useState } from "react";
 import { Plus, Pencil, Trash2, FolderOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { MockProject } from "@/hooks/use-project-dialogs";
+import type { ProjectWithOwnership } from "@/lib/data/projects";
 
 interface EditorSidebarProps {
-  projects: MockProject[];
+  projects: ProjectWithOwnership[];
   isOpen: boolean;
   onNewProject: () => void;
-  onRenameProject: (project: MockProject) => void;
-  onDeleteProject: (project: MockProject) => void;
+  onRenameProject: (project: ProjectWithOwnership) => void;
+  onDeleteProject: (project: ProjectWithOwnership) => void;
 }
 
 export function EditorSidebar({
@@ -61,9 +61,9 @@ export function EditorSidebar({
 }
 
 interface ProjectItemProps {
-  project: MockProject;
-  onRename: (project: MockProject) => void;
-  onDelete: (project: MockProject) => void;
+  project: ProjectWithOwnership;
+  onRename: (project: ProjectWithOwnership) => void;
+  onDelete: (project: ProjectWithOwnership) => void;
 }
 
 function ProjectItem({ project, onRename, onDelete }: ProjectItemProps) {
