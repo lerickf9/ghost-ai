@@ -73,6 +73,9 @@ export function useProjectActions(
       const project = (await res.json()) as { id: string };
       closeDialog();
       router.push(`/editor/${project.id}`);
+    } catch (error) {
+      // Display error to user via toast or error state
+      console.error("Create failed:", error);
     } finally {
       setIsLoading(false);
     }
@@ -90,6 +93,9 @@ export function useProjectActions(
       if (!res.ok) throw new Error("Failed to rename project");
       closeDialog();
       router.refresh();
+    } catch (error) {
+      // Display error to user via toast or error state
+      console.error("Rename failed:", error);
     } finally {
       setIsLoading(false);
     }
@@ -109,6 +115,9 @@ export function useProjectActions(
       } else {
         router.refresh();
       }
+    } catch (error) {
+      // Display error to user via toast or error state
+      console.error("Delete failed:", error);
     } finally {
       setIsLoading(false);
     }
